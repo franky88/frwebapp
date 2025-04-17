@@ -10,25 +10,40 @@ import {
 } from "../ui/table";
 import { Eye, EyeClosed } from "lucide-react";
 import ToggleDisplay from "./ToggleDisplay";
+import { Checkbox } from "../ui/checkbox";
 
 interface SkillListProps {
   skills: SkillType[];
   skillsRefetch: () => void;
+  selectedIds: string[];
+  handleSelect: (id: string) => void;
 }
 
-const SkillList = ({ skills, skillsRefetch }: SkillListProps) => {
+const SkillList = ({
+  skills,
+  skillsRefetch,
+  selectedIds,
+  handleSelect,
+}: SkillListProps) => {
   if (skills.length === 0) return <p>No skills found</p>;
   return (
     <div>
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead className="w-3">Select</TableHead>
             <TableHead>Skills</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {skills.map((exp) => (
             <TableRow key={exp._id}>
+              <TableCell className="text-center">
+                <Checkbox
+                  checked={selectedIds.includes(exp._id)}
+                  onCheckedChange={() => handleSelect(exp._id)}
+                />
+              </TableCell>
               <TableCell className={`${exp.hidden ? "bg-slate-200" : ""}`}>
                 <div className="flex justify-between">
                   <div>

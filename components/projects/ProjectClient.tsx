@@ -80,6 +80,8 @@ const ProjectClient = () => {
             categories={categories}
             sendDataToParent={handleDataRecieved}
           />
+          {categoryName ? (<div>Category name: {categoryName}</div>) ? null}
+          
           <AddCategory onCategoryAdded={fetchCategories} />
           <AddProject onProjectAdded={fetchProjects} categories={categories} />
         </div>

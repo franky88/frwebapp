@@ -84,6 +84,22 @@ export const deleteSkill = async (id: string): Promise<boolean> => {
     }
 }
 
+export const deleteSkills = async (ids: string[]): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const userId = await getLogedInUserId();
+      await connect();
+  
+      const result = await Skills.deleteMany({ _id: { $in: ids }, userId });
+  
+      revalidatePath('/dashboard/skills');
+  
+      return { success: true };
+    } catch (error) {
+      console.error("Error deleting skills:", error);
+      return { success: false, error: "Failed to delete skills" };
+    }
+};
+
 export const updateSkill = async (id: string, formData: FormData): Promise<boolean> => {
     try {
         await getLogedInUserId();
