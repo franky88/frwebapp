@@ -32,10 +32,10 @@ const ExperienceClient = () => {
   return (
     <div className="flex flex-col items-start gap-4 w-full">
       <div className="flex justify-between w-full bg-white p-4">
-        <h1 className="text-2xl font-bold">Experience Page</h1>
+        <h1 className="text-2xl font-bold">Experience List</h1>
         <AddExperience onExperienceAdded={refreshExperience} />
       </div>
-      <div className="p-4 bg-white shadow-md w-full">
+      <div className="p-2 bg-white shadow-md w-full">
         <ExperienceList
           loading={loading}
           experiences={experience}

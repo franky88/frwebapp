@@ -9,6 +9,7 @@ import {
   TableCell,
 } from "../ui/table";
 import { Eye, EyeClosed } from "lucide-react";
+import ToggleDisplay from "./ToggleDisplay";
 
 interface SkillListProps {
   skills: SkillType[];
@@ -19,7 +20,6 @@ const SkillList = ({ skills, skillsRefetch }: SkillListProps) => {
   if (skills.length === 0) return <p>No skills found</p>;
   return (
     <div>
-      <h2 className="text-xl font-bold">Skill List</h2>
       <Table>
         <TableHeader>
           <TableRow>
@@ -40,7 +40,11 @@ const SkillList = ({ skills, skillsRefetch }: SkillListProps) => {
                     </strong>
                   </div>
                   <div className="flex items-center gap-4">
-                    {exp.hidden ? <EyeClosed /> : <Eye />}
+                    <ToggleDisplay
+                      id={exp._id}
+                      isVisible={exp.hidden}
+                      onUpdateSkill={skillsRefetch}
+                    />
                     <UpdateSkill onUpdateSkill={skillsRefetch} skill={exp} />
                     <DeleteSkill id={exp._id} onSkillDelete={skillsRefetch} />
                   </div>

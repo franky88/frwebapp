@@ -90,6 +90,24 @@ const UpdateExperience = ({
                 />
               </div>
               <div className="flex flex-col gap-1 w-full">
+                <Label htmlFor="url">Website URL</Label>
+                <Input
+                  type="text"
+                  placeholder="url"
+                  name="url"
+                  defaultValue={experience.url}
+                />
+              </div>
+              <div className="flex flex-col gap-1 w-full">
+                <Label htmlFor="image">Company logo URL</Label>
+                <Input
+                  type="text"
+                  placeholder="Image URL"
+                  name="image"
+                  defaultValue={experience.image}
+                />
+              </div>
+              <div className="flex flex-col gap-1 w-full">
                 <Label htmlFor="from">Start Date</Label>
                 <Input
                   type="date"

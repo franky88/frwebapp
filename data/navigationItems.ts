@@ -21,6 +21,10 @@ export const dashboardNavItems = {
             title: "Skills",
             url: "/dashboard/skills",
           },
+          {
+            title: "Projects",
+            url: "/dashboard/portfolio",
+          },
         ],
       },
     ],

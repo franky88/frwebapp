@@ -92,6 +92,14 @@ const AddExperience = ({ onExperienceAdded }: AddExperienceProps) => {
                 />
               </div>
               <div className="flex flex-col gap-1 w-full">
+                <Label htmlFor="url">Website</Label>
+                <Input type="text" placeholder="URL" name="url" />
+              </div>
+              <div className="flex flex-col gap-1 w-full">
+                <Label htmlFor="image">Logo</Label>
+                <Input type="text" placeholder="Logo URL" name="image" />
+              </div>
+              <div className="flex flex-col gap-1 w-full">
                 <Label htmlFor="from">Start Date</Label>
                 <Input type="date" name="from" required />
               </div>

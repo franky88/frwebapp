@@ -29,6 +29,8 @@ export const addExperience = async (formData: FormData): Promise<AddExperienceAc
         const to = formData.get("to")?.toString() ?? "";
         const promoted = formData.get("promoted") === "on" ? true : false;
         const description = formData.get("description")?.toString() ?? "";
+        const url = formData.get("url")?.toString() ?? "";
+        const image = formData.get("image")?.toString() ?? "";
 
         await connect();
         const experience = await Experience.create({
@@ -39,6 +41,8 @@ export const addExperience = async (formData: FormData): Promise<AddExperienceAc
             to,
             promoted,
             description,
+            url,
+            image,
             userId: userId
         });
 
@@ -110,6 +114,8 @@ export const updateExperience = async (id: string, formData: FormData): Promise<
             to: formData.get("to")?.toString() ?? experience.to,
             promoted: formData.get("promoted") === "on" ? true : false && experience.current,
             description: formData.get("description")?.toString() ?? experience.description,
+            url: formData.get("url")?.toString() ?? experience.url,
+            image: formData.get("image")?.toString() ?? experience.image,
         };
 
         await Experience.findByIdAndUpdate(id, updatedData, { new: true });

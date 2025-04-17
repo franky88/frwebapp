@@ -8,6 +8,8 @@ interface IExperience extends Document {
     to?: Date;
     promoted?: boolean;
     description?: string;
+    url?: string;
+    image?: string;
     userId?: mongoose.Types.ObjectId;
 }
 
@@ -20,6 +22,8 @@ const ExperienceSchema = new Schema<IExperience>(
         to: {type: Date},
         promoted: {type: Boolean, default: false},
         description: {type: String},
+        url: {type: String},
+        image: {type: String},
         userId: { type: String, required: true },
     },
     {

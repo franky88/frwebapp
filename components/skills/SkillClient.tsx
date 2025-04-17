@@ -27,12 +27,12 @@ const SkillClient = () => {
   };
 
   return (
-    <div className="flex flex-col items-start gap-8 w-full">
+    <div className="flex flex-col items-start gap-4 w-full">
       <div className="flex justify-between w-full bg-white p-4">
-        <h1 className="text-2xl font-bold">Skills Page</h1>
+        <h1 className="text-2xl font-bold">Skills List</h1>
         <AddSkill onSkillAdded={refreshSkills} />
       </div>
-      <div className="p-4 bg-white shadow-md w-full">
+      <div className="p-2 bg-white shadow-md w-full">
         <SkillList skills={skills} skillsRefetch={refreshSkills} />
       </div>
     </div>

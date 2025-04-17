@@ -1,7 +1,12 @@
 import React from "react";
+import ProjectClient from "@/components/projects/ProjectClient";
 
 const PortfolioPage = () => {
-  return <div>Portfolio Page</div>;
+  return (
+    <div>
+      <ProjectClient />
+    </div>
+  );
 };
 
 export default PortfolioPage;

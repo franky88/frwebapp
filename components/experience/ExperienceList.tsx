@@ -9,7 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CircleCheckBig } from "lucide-react";
+import { CircleCheckBig, MapPin } from "lucide-react";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface ExperienceListProps {
   loading: boolean;
@@ -26,16 +28,41 @@ const ExperienceList = ({
   if (experiences.length === 0) return <p>No experiences found</p>;
   return (
     <div>
-      <h2 className="text-xl font-bold mb-5">Experience List</h2>
       <div className="masonry-grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {experiences.map((exp) => (
-          <Card key={exp._id} className="mb-4 masonry-grid-item">
+          <Card key={exp._id} className="masonry-grid-item">
             <CardHeader>
               <CardTitle>{exp.title.toUpperCase()}</CardTitle>
               <CardDescription>
-                {exp.company.toUpperCase()} - ({" "}
-                {format(new Date(exp.from), "MMM yyyy")} -{" "}
-                {exp.to ? format(new Date(exp.to), "MMM yyyy") : "Present"})
+                <div className="flex justify-between items-start">
+                  <div>
+                    {exp.company.toUpperCase()} - ({" "}
+                    {format(new Date(exp.from), "MMM yyyy")} -{" "}
+                    {exp.to ? format(new Date(exp.to), "MMM yyyy") : "Present"})
+                    <div>
+                      <small className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <MapPin className="w-4 h-4" /> {exp.location}
+                      </small>
+                    </div>
+                  </div>
+                  <div>
+                    <Link
+                      href={exp.url ? exp.url : "#"}
+                      className="flex items-center gap-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Avatar>
+                        <AvatarImage
+                          src={exp.image ? exp.image : "#"}
+                          className="bg-slate-400"
+                        />
+                        <AvatarFallback>A</AvatarFallback>
+                      </Avatar>{" "}
+                      Website
+                    </Link>
+                  </div>
+                </div>
               </CardDescription>
             </CardHeader>
             <CardContent>

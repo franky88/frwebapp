@@ -109,3 +109,21 @@ export const updateSkill = async (id: string, formData: FormData): Promise<boole
         return false;
     }
 };
+
+export const updateSkillHidden = async (id: string, hidden: boolean): Promise<boolean> => {
+    try {
+      await getLogedInUserId();
+      await connect();
+  
+      const skill = await Skills.findById(id);
+      if (!skill) return false;
+  
+      await Skills.findByIdAndUpdate(id, { hidden }, { new: true });
+  
+      revalidatePath("/dashboard/skills");
+      return true;
+    } catch (error) {
+      console.error("Error updating skill hidden status:", error);
+      return false;
+    }
+};

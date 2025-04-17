@@ -1,4 +1,3 @@
-
 interface ExperienceType {
     _id: string;
     title: string;
@@ -8,16 +7,38 @@ interface ExperienceType {
     to: string;
     promoted: boolean;
     description: string;
+    url: string;
+    image: string;
     userId: string;
     createdAt: string;
     updatedAt: string;
 }
 
 interface SkillType {
-    _id: string,
-    name: string,
-    type: string,
-    hidden: boolean,
+    _id: string;
+    name: string;
+    type: string;
+    hidden: boolean;
+    userId: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface CategoryType {
+    _id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface ProjectType {
+    _id: string;
+    name: string;
+    description: string;
+    categoryId: string;
+    categoryName: string;
+    url: string;
+    image: string;
     userId: string;
     createdAt: string;
     updatedAt: string;
