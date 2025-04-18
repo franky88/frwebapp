@@ -43,3 +43,8 @@ interface ProjectType {
     createdAt: string;
     updatedAt: string;
 }
+
+interface FolderType {
+    id: string;
+    name: string;
+}

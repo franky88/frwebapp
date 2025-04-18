@@ -19,7 +19,7 @@ const getLogedInUserId = async () => {
 }
 
 interface GetProjectsProp {
-    categoryName?: string
+    categoryName?: string | boolean | null
 }
 
 export const getProjects = async ({categoryName}: GetProjectsProp): Promise<ProjectType[]> => {
@@ -27,9 +27,10 @@ export const getProjects = async ({categoryName}: GetProjectsProp): Promise<Proj
         await getLogedInUserId();
         await connect();
         const res = await Project.find();
-        const projects = categoryName
-            ? res.filter(project => project.categoryName === categoryName)
-            : res;
+        const projects =
+            categoryName === false || categoryName === null
+                ? res
+                : res.filter(project => project.categoryName === categoryName);
         return projects.map((project) => ({
             ...project.toObject(),
             _id: project._id.toString(),

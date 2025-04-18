@@ -13,7 +13,9 @@ import DeleleProjects from "./DeleleProjects";
 const ProjectClient = () => {
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState<string | boolean | null>(
+    false
+  );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const fetchProjects = async () => {
@@ -61,7 +63,7 @@ const ProjectClient = () => {
     }
   };
 
-  const handleDataRecieved = (data: string) => {
+  const handleDataRecieved = (data: string | boolean | null) => {
     setCategoryName(data);
   };
 
@@ -69,19 +71,32 @@ const ProjectClient = () => {
     <div className="flex flex-col items-start gap-4 w-full">
       <div className="flex justify-between w-full bg-white p-4">
         <h1 className="text-2xl font-bold">Project List</h1>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           {selectedIds.length > 0 && (
             <DeleleProjects
               selectedIds={selectedIds}
               handleBulkDelete={handleBulkDelete}
             />
           )}
-          <CategoryFilterMenu
-            categories={categories}
-            sendDataToParent={handleDataRecieved}
-          />
-          {categoryName ? (<div>Category name: {categoryName}</div>) ? null}
-          
+          <div className="flex items-center bg-slate-200 rounded-md">
+            <CategoryFilterMenu
+              categories={categories}
+              sendDataToParent={handleDataRecieved}
+            />
+            {categoryName && (
+              <div className="flex gap-2 items-center rounded-md border-1 py-1 px-2 bg-slate-200">
+                Category name: <strong>{categoryName}</strong>
+                <Button
+                  variant={"secondary"}
+                  className="h-5 w-5 px-2 py-0"
+                  onClick={() => handleDataRecieved(false)}
+                >
+                  x
+                </Button>
+              </div>
+            )}
+          </div>
+
           <AddCategory onCategoryAdded={fetchCategories} />
           <AddProject onProjectAdded={fetchProjects} categories={categories} />
         </div>

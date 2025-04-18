@@ -25,6 +25,10 @@ export const dashboardNavItems = {
             title: "Projects",
             url: "/dashboard/portfolio",
           },
+          {
+            title: "Files",
+            url: "/dashboard/files",
+          },
         ],
       },
     ],
