@@ -4,17 +4,22 @@ import { getFolders } from "@/app/actions/krakenAPIActions";
 import FolderList from "./FolderList";
 import { useEffect, useState } from "react";
 import CreateFolder from "./CreateFolder";
+import { getCloudinaryFolders } from "@/app/actions/cloudinary";
 
-const FilesClient = () => {
+const FilesClient = ({ parentFolder = "" }: { parentFolder?: string }) => {
   const [folders, setFolders] = useState<FolderType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchFolders = async () => {
+    setLoading(true);
     try {
-      const res = await getFolders();
-      console.log(res);
-      setFolders(res.data || []);
+      const result = await getCloudinaryFolders(parentFolder);
+      const folderNames = result.map((f: any) => f.name);
+      setFolders(folderNames);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching folders:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,12 +29,8 @@ const FilesClient = () => {
 
   return (
     <div className="flex flex-col items-start gap-4 w-full">
-      <div className="flex justify-between w-full bg-white p-2">
-        <h1 className="text-2xl font-bold">Folders</h1>
-        <CreateFolder />
-      </div>
-      <div className="p-2 bg-white shadow-md w-full">
-        <FolderList folders={folders} />
+      <div className="w-full">
+        <FolderList folders={folders} updateFolders={fetchFolders} />
       </div>
     </div>
   );

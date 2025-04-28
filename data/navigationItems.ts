@@ -26,8 +26,8 @@ export const dashboardNavItems = {
             url: "/dashboard/portfolio",
           },
           {
-            title: "Files",
-            url: "/dashboard/files",
+            title: "Folders",
+            url: "/dashboard/folders",
           },
         ],
       },

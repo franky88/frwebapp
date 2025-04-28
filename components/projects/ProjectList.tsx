@@ -26,7 +26,7 @@ const ProjectList = ({
   refreshProjects,
 }: ProjectListProp) => {
   return (
-    <div>
+    <div className="border-1 rounded-md">
       <Table>
         <TableCaption>A list of your recent projects.</TableCaption>
         <TableHeader>

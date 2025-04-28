@@ -1,8 +1,8 @@
 import FilesClient from "@/components/files/FilesClient";
 import React from "react";
 
-const FilePage = () => {
+const FolderPage = () => {
   return <FilesClient />;
 };
 
-export default FilePage;
+export default FolderPage;

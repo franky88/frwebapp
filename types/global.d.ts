@@ -47,4 +47,40 @@ interface ProjectType {
 interface FolderType {
     id: string;
     name: string;
+    parentId: string;
+}
+
+interface FolderTypeResponse {
+    status: number;
+    data: FolderType[]
+}
+
+interface FileType {
+    url: string;
+    name: string;
+    hash: string;
+    size: string;
+    downloads: number;
+    views: number;
+    folderId: string | null;
+    premiumOnly: boolean;
+    reportedDate: string | null;
+    extension: string;
+    server: string;
+    type: string;
+    uploadDate: string;
+}
+
+interface FileTypeResponse {
+    status: number;
+    data: FileType
+}
+
+interface FileTypeResponseAll {
+    status: number;
+    perPage: number;
+    page: number
+    totalItems: number;
+    totalPages: number;
+    data: FileType[]
 }

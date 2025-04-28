@@ -69,7 +69,7 @@ const ProjectClient = () => {
 
   return (
     <div className="flex flex-col items-start gap-4 w-full">
-      <div className="flex justify-between w-full bg-white p-4">
+      <div className="flex justify-between w-full bg-white">
         <h1 className="text-2xl font-bold">Project List</h1>
         <div className="flex items-center gap-2">
           {selectedIds.length > 0 && (
@@ -101,7 +101,7 @@ const ProjectClient = () => {
           <AddProject onProjectAdded={fetchProjects} categories={categories} />
         </div>
       </div>
-      <div className="p-2 bg-white shadow-md w-full">
+      <div className="w-full">
         <ProjectList
           selectedIds={selectedIds}
           handleSelect={handleSelect}

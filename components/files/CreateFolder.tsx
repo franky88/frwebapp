@@ -12,25 +12,46 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { createFolder } from "@/app/actions/krakenAPIActions";
 import { toast } from "react-toastify";
+import { createCloudinaryFolder } from "@/app/actions/cloudinary";
 
-const CreateFolder = () => {
+interface CreateFolderProps {
+  updateFolders: () => void;
+  id?: string | null;
+}
+
+const CreateFolder = ({ updateFolders, id }: CreateFolderProps) => {
   const [open, setOpen] = useState(false);
+  const [folderName, setFolderName] = useState("");
 
-  const clientAction = async (FormData: FormData) => {
+  // const clientAction = async (FormData: FormData) => {
+  //   try {
+  //     const results = await createFolder(id, FormData);
+  //     toast.success(results.message);
+  //     updateFolders();
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setOpen(false);
+  //   }
+  // };
+
+  const handleCreate = async () => {
     try {
-      const results = await createFolder(FormData);
-      console.log(results);
-      toast.success(results);
+      const result = await createCloudinaryFolder(folderName);
+      toast.success(`Folder created: ${result.name}`);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
       setOpen(false);
-    } catch (error) {
-      console.error(error);
+      setFolderName("");
+      updateFolders();
     }
   };
+
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
+      <Button variant={"link"} onClick={() => setOpen(true)} className="h-5">
         <Plus /> Folder
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -39,22 +60,32 @@ const CreateFolder = () => {
             <DialogTitle>Create folder</DialogTitle>
             <DialogDescription>Add a new folder.</DialogDescription>
           </DialogHeader>
-          <form
-            action={clientAction}
-            className="flex flex-col gap-4 items-start"
-          >
+          <div className="flex gap-2 items-end">
             <div className="flex flex-col gap-1 w-full">
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
                 type="text"
                 placeholder="Name"
-                name="name"
+                value={folderName}
+                onChange={(e) => setFolderName(e.target.value)}
                 required
               />
             </div>
-            <Button type="submit">Submit</Button>
-          </form>
+            <Button onClick={handleCreate}>Create</Button>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold">How to use:</h2>
+            <ol className="list-decimal pl-5 space-y-2">
+              <li>Enter the folder name you want to create.</li>
+              <li>Click the "Create Folder" button.</li>
+              <li>Check the result message below.</li>
+            </ol>
+            <p className="text-sm text-gray-500">
+              Note: The folder name should not contain any special characters or
+              spaces.
+            </p>
+          </div>
         </DialogContent>
       </Dialog>
     </>

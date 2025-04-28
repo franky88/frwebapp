@@ -1,5 +1,4 @@
-import { Folder } from "lucide-react";
-import { Checkbox } from "../ui/checkbox";
+import { Folder, Upload } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -8,32 +7,72 @@ import {
   TableRow,
   TableCell,
 } from "../ui/table";
+import DeleteFolder from "./DeleteFolder";
+import RenameFolder from "./RenameFolder";
+import Link from "next/link";
+import UploadFiles from "./UploadFiles";
+import CreateFolder from "./CreateFolder";
+import { toSentenceCase } from "@/utils/sentenceCase";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+} from "../ui/breadcrumb";
 
 interface FolderListProps {
   folders: FolderType[];
+  updateFolders: () => void;
 }
 
-const FolderList = ({ folders }: FolderListProps) => {
+const FolderList = ({ folders, updateFolders }: FolderListProps) => {
   return (
     <>
-      Folders
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Folders</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {folders.map((folder) => (
-            <TableRow key={folder.id}>
-              <TableCell className="flex gap-2 items-end">
-                <Folder className="text-amber-600" />{" "}
-                {folder.name.toUpperCase()}
-              </TableCell>
+      <div className="flex items-center justify-between">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="/dashboard/folders">Folders</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        <CreateFolder updateFolders={updateFolders} />
+      </div>
+      <div className="border-1 rounded-md mt-4">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Folders</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {folders.map((name, index) => (
+              <TableRow key={`${name}-${index}`}>
+                <TableCell className="flex gap-2 items-center justify-between">
+                  <div className="flex items-end gap-2">
+                    <Folder className="text-amber-600" />{" "}
+                    <Link href={`folders/${name}`}>
+                      {toSentenceCase(String(name))}
+                    </Link>{" "}
+                  </div>
+                  {/* <div className="flex gap-2">
+                    <UploadFiles id={name} />
+                    <RenameFolder
+                      id={folder.id}
+                      folderName={folder.name}
+                      updateFolders={updateFolders}
+                    />
+                    <DeleteFolder
+                      id={folder.id}
+                      updateFolders={updateFolders}
+                    />
+                  </div> */}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 };

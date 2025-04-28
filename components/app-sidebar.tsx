@@ -17,11 +17,7 @@ import {
 import { dashboardNavItems } from "@/data/navigationItems";
 import Link from "next/link";
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  onSelectMenu: (menu: string) => void;
-}
-
-export function AppSidebar({ onSelectMenu, ...props }: AppSidebarProps) {
+export function AppSidebar({ ...props }) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -40,11 +36,7 @@ export function AppSidebar({ onSelectMenu, ...props }: AppSidebarProps) {
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={false}
-                      onClick={() => onSelectMenu(item.title)}
-                    >
+                    <SidebarMenuButton asChild isActive={false}>
                       <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

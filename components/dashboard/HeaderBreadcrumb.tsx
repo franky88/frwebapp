@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,12 +8,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
+import { usePathname } from "next/navigation";
+import { toSentenceCase } from "@/utils/sentenceCase";
 
-interface HeaderBreadcrumbProps {
-  selectedMenu: string;
-}
-
-const HeaderBreadcrumb = ({ selectedMenu }: HeaderBreadcrumbProps) => {
+const HeaderBreadcrumb = () => {
+  const pathName = usePathname().split("/")[2];
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -20,7 +21,7 @@ const HeaderBreadcrumb = ({ selectedMenu }: HeaderBreadcrumbProps) => {
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
         <BreadcrumbItem>
-          <BreadcrumbPage>{selectedMenu}</BreadcrumbPage>
+          <BreadcrumbPage>{toSentenceCase(pathName)}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
